@@ -10,10 +10,11 @@ server.route({
     method: 'GET',
     path: '/inventory/{id}',
     handler: function (request, reply) {
-
         debug('In route get');
 
-        reply('Hello, world!');
+        let id = request.params.id;
+
+        reply('Hello, world! You entered' +id);
     }
 });
 
