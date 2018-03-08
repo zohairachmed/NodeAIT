@@ -1,0 +1,15 @@
+version: '2'
+services:
+  figaro:
+    image: node-ait-api
+    build:
+      context: .
+      dockerfile: ./.docker/Dockerfile
+      args:
+        workdir: /app
+    container_name: node-ait-api
+    ports:
+      - "3000:3000"
+    environment:
+      - DEBUG=*
+    command: node server.js
