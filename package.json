@@ -17,7 +17,16 @@
   },
   "homepage": "https://github.com/zohairachmed/NodeAIT#readme",
   "dependencies": {
+    "blipp": "^2.3.0",
     "debug": "^3.1.0",
-    "hapi": "^16.6.2"
+    "dotenv": "^4.0.0",
+    "glue": "^4.2.1",
+    "h2o2": "^5.4.0",
+    "hapi": "^16.6.2",
+    "hapi-auth-jwt2": "^7.4.1",
+    "hapi-swaggered-ui": "^2.6.2",
+    "inert": "^4.1.0",
+    "swaggerize-hapi": "^2.0.1",
+    "util": "^0.10.3"
   }
 }

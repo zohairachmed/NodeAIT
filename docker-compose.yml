@@ -9,7 +9,19 @@ services:
         workdir: /app
     container_name: node-ait-api
     ports:
-      - "3000:3000"
+      - "8049:8049"
     environment:
+      - API_HOST=localhost
+      - API_PORT=8049
+      - UI_HOST=localhost
+      - UI_PORT=8050
+      - WS_PORT=8051
+      - PROTOCOL=HTTP
+      - PROXY_UPSTREAM_PROTOCOL=https
+      - PROXY_UPSTREAM_HOST=www.dev-tbd.net
+      - TLS_ENABLED=false
+      - DB_HOST=ait-db
+      - DB_PORT=27017
+      - DB_NAME=ait-db
       - DEBUG=*
     command: node server.js
