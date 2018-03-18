@@ -18,6 +18,7 @@
   "homepage": "https://github.com/zohairachmed/NodeAIT#readme",
   "dependencies": {
     "blipp": "^2.3.0",
+    "cheerio": "^1.0.0-rc.2",
     "debug": "^3.1.0",
     "dotenv": "^4.0.0",
     "glue": "^4.2.1",
@@ -26,6 +27,7 @@
     "hapi-auth-jwt2": "^7.4.1",
     "hapi-swaggered-ui": "^2.6.2",
     "inert": "^4.1.0",
+    "jsdom": "^11.6.2",
     "swaggerize-hapi": "^2.0.1",
     "util": "^0.10.3"
   }

@@ -120,6 +120,11 @@ const manifest = {
             register: './modules/authentication'
         }
     },
+    {
+        plugin: {
+            register: './modules/inventory'
+        }
+    },
     // {
     //     plugin: {
     //         register: './modules/cnetloginedge'
