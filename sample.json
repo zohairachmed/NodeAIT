@@ -1,0 +1,502 @@
+{
+    "swagger": "2.0",
+    "info": {
+      "description": "Mobile Billing Orchestrator provides endpoints to process mobile requests",
+      "version": "0.21.0-rc1",
+      "title": "Mobile Billing Orchestrator API"
+    },
+    "basePath": "/api/pub/mobile/billing",
+    "consumes": [
+      "application/json"
+    ],
+    "produces": [
+      "application/json"
+    ],
+    "paths": {
+      "/v1/statement-list": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieves a list of the last 12 mobile statements including dates and IDs",
+          "description": "Returns a success response when IT service call succeeds regardless of number of statements\n",
+          "operationId": "getMobileStatementList",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success along with the list of statements",
+              "schema": {
+                "$ref": "#/definitions/StatementListResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "403": {
+              "description": "The logged-in user is not permitted to perform the current operation.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/statements/{statementDateRequired}": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieves statement details for a single mobile statement",
+          "description": "Returns an success response if IT service call was successful regardless of completeness of result\n",
+          "operationId": "getStatementByStatementDate",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "name": "statementDateRequired",
+              "in": "path",
+              "description": "The date of the statement to retrieve in the format YYYY-MM-DD",
+              "required": true,
+              "type": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SummaryResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "403": {
+              "description": "The logged-in user is not permitted to perform the current operation.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/statements/current": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieves billing summary information from the most recent mobile statement",
+          "description": "Retrieves billing summary information from the most mobile recent statement",
+          "operationId": "getSummary",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success",
+              "schema": {
+                "$ref": "#/definitions/SummaryResponse"
+              }
+            },
+            "404": {
+              "description": "Used for a 404 HTTP response - Information or resource not found",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/usage/{lineId}/details": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieves call log details of data and phone usage aggregated into billing / usage cycles.",
+          "description": "Returns a success response when IT service call succeeds regardless of number of usage details. Allows you to retrieve the call usage detail for a specific line\n",
+          "operationId": "getUsageDetails",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "name": "lineId",
+              "in": "path",
+              "description": "The ID of the line to retrieve plan details for",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "usageCycleOffset",
+              "in": "query",
+              "description": "Allows you to retrieve a specific usage cycle history within the set of cycles. The current / most recent cycle has an index of 0.",
+              "required": false,
+              "type": "integer",
+              "default": 0
+            },
+            {
+              "name": "recordOffset",
+              "in": "query",
+              "description": "To be used for pagination: Records offset/Starting index. Last record offset returned. Default 0",
+              "required": false,
+              "type": "integer",
+              "default": 0
+            },
+            {
+              "name": "chunkSize",
+              "in": "query",
+              "description": "Size of records to be returned. Default 10",
+              "required": false,
+              "type": "integer",
+              "default": 10
+            },
+            {
+              "name": "activityType",
+              "in": "query",
+              "description": "The type of phone activity to return [DATA, VOICE, SMS, MMS, SMS_MMS], if not provided then will return all activity types",
+              "required": false,
+              "type": "string",
+              "enum": [
+                "DATA",
+                "VOICE",
+                "SMS",
+                "MMS",
+                "SMS_MMS"
+              ]
+            },
+            {
+              "name": "planType",
+              "in": "query",
+              "description": "The type of plan used to make this call",
+              "required": false,
+              "type": "string",
+              "enum": [
+                "DOMESTIC",
+                "ILD",
+                "IROAM"
+              ]
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Call detail records (CDRs) for a single line of service. If no CDRs found then an empty array will be returned for detailRecords.",
+              "schema": {
+                "$ref": "#/definitions/DeviceUsageDetailResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/billing/autopay": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieve the payment method metadata associated with a CyberSource token.",
+          "description": "Allows you to retrieve payment method metadata based on a CyberSource token.",
+          "operationId": "getPaymentMethod",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Payment Method Information",
+              "schema": {
+                "$ref": "#/definitions/PaymentMethodResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "403": {
+              "description": "The logged-in user is not permitted to perform the current operation.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        },
+        "put": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Update the payment method metadata associated and token for an account",
+          "description": "Allows you to update the payment method associated with an account",
+          "operationId": "updatePaymentMethod",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "in": "body",
+              "name": "paymentMethodUpdate",
+              "description": "The credit card update data",
+              "required": true,
+              "schema": {
+                "$ref": "#/definitions/PaymentMethodUpdate"
+              }
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "A response describing status of the payment method update",
+              "schema": {
+                "$ref": "#/definitions/TokenAcceptanceResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "403": {
+              "description": "The logged-in user is not permitted to perform the current operation.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/orders": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "Retrieve a list of orders",
+          "description": "This endpoint retrieves a list of orders made by a customer\n",
+          "operationId": "getOrders",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Success along with the list of orders",
+              "schema": {
+                "$ref": "#/definitions/OrdersResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "403": {
+              "description": "The logged-in user is not permitted to perform the current operation.",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      },
+      "/v1/usage/{lineId}/details/summary": {
+        "get": {
+          "tags": [
+            "MobileBilling"
+          ],
+          "summary": "This endpoint retrieves a summary of international/roaming data by country and activity type.",
+          "description": "Returns a success response when IT service call succeeds regardless of number of usage summary data",
+          "operationId": "getUsageDetailsIntlSummary",
+          "parameters": [
+            {
+              "name": "token",
+              "in": "header",
+              "description": "The user's session identifier",
+              "required": false,
+              "type": "string",
+              "format": "string"
+            },
+            {
+              "name": "lineId",
+              "in": "path",
+              "description": "The ID of the line to retrieve plan details for",
+              "required": true,
+              "type": "string"
+            },
+            {
+              "name": "usageCycleOffset",
+              "in": "query",
+              "description": "Allows you to retrieve a specific usage cycle history within the set of cycles. The current / most recent cycle has an index of 0.",
+              "required": false,
+              "type": "integer",
+              "default": 0
+            }
+          ],
+          "responses": {
+            "200": {
+              "description": "Call Log Summary data grouped by country and activity type.",
+              "schema": {
+                "$ref": "#/definitions/UsageDetailsIntlSummaryResponse"
+              }
+            },
+            "401": {
+              "description": "Used for a 401 HTTP response - Client not authenticated",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "500": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            },
+            "default": {
+              "description": "Used for a 500 HTTP response - Internal server error",
+              "schema": {
+                "$ref": "#/definitions/Error"
+              }
+            }
+          }
+        }
+      }
+    },
+    "definitions": null
+  }
