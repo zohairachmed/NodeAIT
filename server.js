@@ -170,6 +170,6 @@ Glue.compose(manifest, options, (err, server) => {
     }
 
     server.start(() => {
-        debug('Figaro is running.');
+        debug('Server is running.');
     });
 });

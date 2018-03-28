@@ -18,9 +18,9 @@ module.exports = {
         if (merchant === "walmart") {
 
         }
-//https://www.walmart.com/ip/LEGO-Star-Wars-TM-BB-8-75187/163329791
+//https://www.walmart.com/ip/Halloween-Bottle/358304036 --0 items
         debug(`About to load the url`);
-        JSDOM.fromURL("https://www.walmart.com/ip/Halloween-Bottle/358304036", {
+        JSDOM.fromURL("https://www.walmart.com/ip/LEGO-Star-Wars-TM-BB-8-75187/163329791", {
 
             referrer: "https://google.com/",
 
