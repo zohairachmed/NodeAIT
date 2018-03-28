@@ -22,10 +22,13 @@ if (process.env.TLS_ENABLED === 'true') {
     debug('HTTPS not enabled');
 }
 
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
+
 const environment = {
     api: {
-        host: process.env.API_HOST || 'localhost',
-        port: process.env.API_PORT || 8049
+        //host: process.env.API_HOST || 'localhost',
+        port: process.env.PORT || process.env.API_PORT || 8049
     },
     ui: {
         host: process.env.UI_HOST || 'localhost',
