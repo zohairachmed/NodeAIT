@@ -55,20 +55,49 @@
                     }
                 }
             }
+        },
+        "/v1/convert/{upc}": {
+            "get": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Pre-Inventory data for the login UI",
+                "description": "Pre-Inventory information, for example whether the user needs to be challenged with a CAPTCHA",
+                "operationId": "preInventory",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "upc",
+                        "in": "path",
+                        "description": "The product id we need to check inventory for",
+                        "required": true,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/ScrapingResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
         "ScrapingResponse": {
             "type": "object",
             "properties": {
-                "title": {
+                "asin": {
                     "type": "string"
                 },
-                "price": {
-                    "type": "integer",
-                    "format": "int32"
-                },
-                "salesRank": {
+                "url": {
                     "type": "string"
                 }
             }
