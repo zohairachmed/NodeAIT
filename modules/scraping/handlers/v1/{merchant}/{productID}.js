@@ -74,7 +74,6 @@ module.exports = {
         }).catch(error => {
             debug(`${error}`);
             reply().code(500);
-            Ï
         });
     }
 };
