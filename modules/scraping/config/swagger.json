@@ -1,14 +1,14 @@
 {
     "swagger": "2.0",
     "info": {
-        "description": "Inventory - REST Endpoints",
+        "description": "Scraping - REST Endpoints",
         "version": "1.15.0-SNAPSHOT",
-        "title": "Inventory"
+        "title": "Scraping"
     },
-    "basePath": "/inventory/",
+    "basePath": "/scraping/",
     "tags": [
         {
-            "name": "Inventory"
+            "name": "Scraping"
         }
     ],
     "schemes": [

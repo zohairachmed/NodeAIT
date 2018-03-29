@@ -130,6 +130,11 @@ const manifest = {
     },
     {
         plugin: {
+            register: './modules/scraping'
+        }
+    },
+    {
+        plugin: {
             register: './modules/records'
         }
     },
