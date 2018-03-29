@@ -6,7 +6,7 @@ const { JSDOM } = jsdom;
 
 module.exports = {
     get: function (req, reply, next) {
-        debug(`Logging in user: ${req.params.merchant}`);
+        //debug(`Logging in user: ${req.params.merchant}`);
         //let merchant = req.params.merchant;
         let upc = req.params.upc;
         var response = {
