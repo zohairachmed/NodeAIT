@@ -54,21 +54,25 @@ module.exports = {
             //     debug(`Bullet  ${i}: ${ch(elem).html().trim()}`);
             // });
             // debug(`Description: ${ch('#productDescription').html().trim()}`);
+
             var salesRankHtml = ch('#SalesRank').html().trim();
-            var startingIndex = salesRankHtml.indexOf('</b>') + 5;
+            if (salesRankHtml.indexOf('</b>') > 0) {
+                var startingIndex = salesRankHtml.indexOf('</b>') + 5;
 
-            var withoutBr = salesRankHtml.substr(startingIndex);
+                var withoutBr = salesRankHtml.substr(startingIndex);
+                if (withoutBr.indexOf('(<a') > 0) {
+                    var endingIndex = withoutBr.indexOf('(<a');
 
-            var endingIndex = withoutBr.indexOf('(<a');
+                    var finalRanking = withoutBr.substr(0, endingIndex)
 
-            var finalRanking = withoutBr.substr(0, endingIndex)
+                    finalRanking = finalRanking.replace(/\r?\n?/g, '').trim();
 
-            finalRanking = finalRanking.replace(/\r?\n?/g, '').trim();
-
-            debug(`SalesRank: ${finalRanking}`);
+                    debug(`SalesRank: ${finalRanking}`);
 
 
-            response.salesRank = finalRanking;
+                    response.salesRank = finalRanking;
+                }
+            }
 
             reply(response).code(200);
         }).catch(error => {
