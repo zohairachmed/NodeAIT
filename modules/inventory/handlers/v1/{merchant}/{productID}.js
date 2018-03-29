@@ -18,7 +18,7 @@ module.exports = {
         if (merchant === "walmart") {
 
         }
-//https://www.walmart.com/ip/Halloween-Bottle/358304036 --0 items
+        //https://www.walmart.com/ip/Halloween-Bottle/358304036 --0 items
         debug(`About to load the url`);
         JSDOM.fromURL("https://www.walmart.com/ip/LEGO-Star-Wars-TM-BB-8-75187/163329791", {
 
@@ -48,18 +48,10 @@ module.exports = {
             response.minimumInventory = totalNumberOfItems;
 
             reply(response).code(200);
-
-            //debug(`Quantity: ${ch('#read-more')}`);
-
-
-            //debug(`URL: ${options.uri}`);
-            //debug(`Bullet Points: ${ch('#fbExpandableSectionContent').children().html().trimLeft().trimRight()}`);
-            // ch('#fbExpandableSectionContent').find('.a-list-item').each(function (i, elem) {
-
-            //     debug(`Bullet  ${i}: ${ch(elem).html().trim()}`);
-            // });
-            // debug(`Description: ${ch('#productDescription').html().trim()}`);
-            // debug(`SalesRank: ${ch('#SalesRank').html().trim()}`);
+        }).catch(error => {
+            debug(`${error}`);
+            reply().code(500);
+            Ï
         });
     }
 };

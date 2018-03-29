@@ -48,15 +48,15 @@ module.exports = {
             let price = response.price = ch('.a-color-price').html().trim();
 
             debug(`Price: ${price}`);
-            
+
             // ch('#fbExpandableSectionContent').find('.a-list-item').each(function (i, elem) {
-                
+
             //     debug(`Bullet  ${i}: ${ch(elem).html().trim()}`);
             // });
             // debug(`Description: ${ch('#productDescription').html().trim()}`);
             var salesRankHtml = ch('#SalesRank').html().trim();
             var startingIndex = salesRankHtml.indexOf('</b>') + 5;
-            
+
             var withoutBr = salesRankHtml.substr(startingIndex);
 
             var endingIndex = withoutBr.indexOf('(<a');
@@ -71,6 +71,10 @@ module.exports = {
             response.salesRank = finalRanking;
 
             reply(response).code(200);
+        }).catch(error => {
+            debug(`${error}`);
+            reply().code(500);
+            Ï
         });
     }
 };
