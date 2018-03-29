@@ -10,8 +10,8 @@ module.exports = {
         let merchant = req.params.merchant;
         let productID = req.params.productID;
         var response = {
-            ProductID: productID,
-            Merchant: merchant,
+            productID: productID,
+            merchant: merchant,
             minimumInventory: 0
         };
 
