@@ -10,7 +10,7 @@ module.exports = {
         //let merchant = req.params.merchant;
         let upc = req.params.upc;
         var response = {
-            asin: '',
+            asin: [],
             url: ''
         };
 
@@ -43,8 +43,9 @@ module.exports = {
 
 
             ch('#s-results-list-atf li').each(function (i, elem) {
-
-                debug(`li:  ${i}: ${ch(elem).attr('data-asin')}`);
+                var asin = ch(elem).attr('data-asin');
+                debug(`li:  ${i}: ${asin}`);
+                response.asin.push(asin);
             });
 
             debug(`All done`);
