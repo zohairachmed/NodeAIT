@@ -6,8 +6,7 @@ const { JSDOM } = jsdom;
 
 module.exports = {
     get: function (req, reply, next) {
-        //debug(`Logging in user: ${req.params.merchant}`);
-        //let merchant = req.params.merchant;
+        
         let upc = req.params.upc;
         var response = {
             asin: [],
@@ -15,10 +14,6 @@ module.exports = {
         };
 
         var preUrl = "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
-
-        // if (merchant === "amazon") {
-        //     preUrl = "https://www.amazon.com/s/ref=nb_sb_noss?url=search-alias%3Daps&field-keywords=";
-        // }
 
         if (!upc) {
             upc = "724742007638";
