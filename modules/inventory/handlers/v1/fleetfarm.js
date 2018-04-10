@@ -20,9 +20,14 @@ module.exports = {
             const browser = await puppeteer.launch();
             const page = await browser.newPage();
 
-            var PLUS_SELECTOR = '#add-to-cart-form > div.product-qty > div > div > div.plus-icon > span';
+            process.on("unhandledRejection", (reason, p) => {
+                console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
+                browser.close();
+              });
 
-            await page.goto(url, { waitUntil: ['networkidle2', 'load', 'domcontentloaded'], timeout: 10000 });
+            var PLUS_SELECTOR = '#add-to-cart-form > div.product-qty > div > div > div.plus-icon > span';
+            
+            await page.goto(url, { waitUntil: ['networkidle2', 'load', 'domcontentloaded'], timeout: 100000 });
 
             try {
                 await page.click(PLUS_SELECTOR);
