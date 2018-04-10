@@ -33,7 +33,7 @@ module.exports = {
                 await page.click(PLUS_SELECTOR);
             }
             catch (error) {
-                console.log('error on plus selector');
+                console.log('error on plus selector for inventory');
             }
 
             page.on('response', response => {
