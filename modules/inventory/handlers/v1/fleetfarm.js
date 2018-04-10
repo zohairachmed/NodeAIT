@@ -23,8 +23,7 @@ module.exports = {
             const page = await browser.newPage();
 
             process.on("unhandledRejection", (reason, p) => {
-                console.error("Unhandled Rejection at: Promise", p, "reason:", reason);
-                browser.close();
+                console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
               });
 
             var PLUS_SELECTOR = '#add-to-cart-form > div.product-qty > div > div > div.plus-icon > span';
