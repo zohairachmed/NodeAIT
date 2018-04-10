@@ -63,61 +63,7 @@ const manifest = {
     {
         plugin: 'vision'
     },
-    // {
-    //     plugin: {
-    //         register: './modules/mock-store'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/figaro-mocks'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/account'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mobile-edge'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mobile-edge-v0.2.0'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mocks/mobile-account'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mocks/mobile-activation'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mocks/mobile-auth'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mocks/mobile-billing'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/mocks/mobile-notification'
-    //     }
-    // },
-    // {
-    //     plugin: {
-    //         register: './modules/cms-orchestrator'
-    //     }
-    // },
+
     {
         plugin: {
             register: './modules/authentication'
@@ -131,11 +77,6 @@ const manifest = {
     {
         plugin: {
             register: './modules/scraping'
-        }
-    },
-    {
-        plugin: {
-            register: './modules/records'
         }
     },
     // {

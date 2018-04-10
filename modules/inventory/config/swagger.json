@@ -128,6 +128,39 @@
                     }
                 }
             }
+        },
+        "/v1/fleetfarm": {
+            "get": {
+                "tags": [
+                    "Inventory"
+                ],
+                "summary": "Pre-Inventory data for the login UI",
+                "description": "Pre-Inventory information, for example whether the user needs to be challenged with a CAPTCHA",
+                "operationId": "preInventory",
+                "produces": [
+                    "application/json"
+                ],
+                "parameters": [
+                    {
+                        "name": "url",
+                        "in": "query",
+                        "description": "The product id we need to check inventory for",
+                        "required": false,
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "description": "Success",
+                        "schema": {
+                            "$ref": "#/definitions/PreAuthResponse"
+                        }
+                    },
+                    "500": {
+                        "description": "Internal server error"
+                    }
+                }
+            }
         }
     },
     "definitions": {
@@ -141,8 +174,7 @@
                     "type": "string"
                 },
                 "minimumInventory": {
-                    "type": "integer",
-                    "format": "int32"
+                    "type": "integer"
                 }
             }
         }
