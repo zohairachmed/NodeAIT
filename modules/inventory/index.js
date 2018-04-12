@@ -10,7 +10,7 @@ exports.register = function (server, options, next) {
         register: swaggerizeHapi,
         options: {
             api: Path.resolve('./modules/inventory/config/swagger.json'),
-            docspath: '/inventory/swagger',  // <-- base path from swagger is prepended
+            docspath: '/swagger',  // <-- base path from swagger is prepended
             handlers: Path.resolve('./modules/inventory/handlers')
         }
     });
