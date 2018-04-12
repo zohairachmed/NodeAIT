@@ -24,10 +24,10 @@ module.exports = {
 
             process.on("unhandledRejection", (reason, p) => {
                 console.log("Unhandled Rejection at: Promise", p, "reason:", reason);
-              });
+            });
 
             var PLUS_SELECTOR = '#add-to-cart-form > div.product-qty > div > div > div.plus-icon > span';
-            
+
             await page.goto(url, { waitUntil: ['networkidle2', 'load', 'domcontentloaded'], timeout: 100000 });
 
             try {
@@ -50,17 +50,16 @@ module.exports = {
                         console.log(jsonResponse.success);
                         if (jsonResponse.success === "true") {
                             apiResponse.minimumInventory = 7;
-                            return;
+                        } else {
+
+                            var errorMessage = jsonResponse.errorMessages[0];
+                            var startingIndex = errorMessage.indexOf('available quantity') + 18;
+                            var finalString = errorMessage.substr(startingIndex).replace('(', '').replace(')', '').replace('.', '');
+
+                            console.log('final: ' + finalString);
+
+                            apiResponse.minimumInventory = parseInt(finalString);
                         }
-
-                        var errorMessage = jsonResponse.errorMessages[0];
-                        var startingIndex = errorMessage.indexOf('available quantity') + 18;
-                        var finalString = errorMessage.substr(startingIndex).replace('(', '').replace(')', '').replace('.', '');
-
-                        console.log('final: ' + finalString);
-
-                        apiResponse.minimumInventory = parseInt(finalString);
-
                     });
                 }
                 catch (error) {
@@ -69,9 +68,9 @@ module.exports = {
             });
 
             await page.$eval('#add-to-cart-form', form => form.submit());
-
-            await page.waitForNavigation();
-            await page.screenshot({ path: 'screenshots/fleetfarm1.png' });
+            await page.waitFor(2*1000);
+            //await page.waitForNavigation();
+            //await page.screenshot({ path: 'screenshots/fleetfarm1.png' });
 
             reply(apiResponse).code(200);
 
